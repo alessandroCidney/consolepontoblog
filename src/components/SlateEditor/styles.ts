@@ -7,6 +7,8 @@ export const SlateWrapper = styled.div`
 	min-height: 100vh;
 
 	padding: 20px;
+
+	text-align: justify;
 `;
 
 export const SlateWrapperWithBorder = styled.div`
@@ -16,6 +18,8 @@ export const SlateWrapperWithBorder = styled.div`
 	min-height: 100vh;;
 
 	padding: 20px;
+
+	text-align: justify;
 
 	> div {
 		width: 100%;
@@ -100,10 +104,6 @@ export const ButtonsWrapper = styled.div`
 	box-shadow: 0 2px 3px #ddd;
 
 	overflow: hidden;
-
-	position: absolute;
-	z-index: 1;
-	top: 100px;
 
 	display: none;
 

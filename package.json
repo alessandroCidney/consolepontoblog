@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@types/styled-components": "^5.1.14",
-    "dotenv": "^10.0.0",
     "firebase": "^9.0.2",
     "next": "11.1.2",
     "react": "17.0.2",

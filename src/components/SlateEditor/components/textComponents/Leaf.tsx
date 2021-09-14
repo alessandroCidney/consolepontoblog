@@ -2,8 +2,9 @@
 import styled from 'styled-components';
 
 const StyledLeaf = styled.span`
-	${props => props.originalProps.leaf.bold && 'font-weight: bold'}
-	${props => props.originalProps.leaf.italic && 'font-style: italic'}
+	text-align: justify;
+	${props => props.originalProps.leaf.bold && 'font-weight: bold;'}
+	${props => props.originalProps.leaf.italic && 'font-style: italic;'}
 `;
 
 const Leaf = props => {

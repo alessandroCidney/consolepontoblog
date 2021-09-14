@@ -2,12 +2,7 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 
 // Components
-import CodeElement from './components/textComponents/CodeElement';
-import DefaultElement from './components/textComponents/DefaultElement';
 import Leaf from './components/textComponents/Leaf';
-import Title1Element from './components/textComponents/Title1Element';
-import Title2Element from './components/textComponents/Title2Element';
-import Title3Element from './components/textComponents/Title3Element';
 import Toolbar from './components/Toolbar';
 
 // Slate
@@ -24,21 +19,10 @@ import {
 
 // Util
 import { CustomEditor } from './util/customEditor';
+import { renderElementFunction } from './util/renderElementFunction';
 
 // Font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-// Types
-type CustomElement = { type: 'paragraph'; children: CustomText[] }
-type CustomText = { text: string }
-
-declare module 'slate' {
-  interface CustomTypes {
-    Editor: BaseEditor & ReactEditor
-    Element: CustomElement
-    Text: CustomText
-  }
-}
 
 type SlateEditorProps = {
 	setEditorContent?: () => void | undefined;
@@ -46,7 +30,12 @@ type SlateEditorProps = {
 	defaultValue?: Node[] | undefined;
 }
 
-const SlateEditor = ({ setEditorContent=undefined, isEditable=true, defaultValue=undefined }: SlateEditorProps) => {
+const SlateEditor = ({ 
+	setEditorContent=undefined, 
+	isEditable=true, 
+	defaultValue=undefined 
+}: SlateEditorProps) => {
+	
 	const slateWrapperRef = useRef(null);
 	const buttonsWrapperRef = useRef(null);
 
@@ -75,28 +64,9 @@ const SlateEditor = ({ setEditorContent=undefined, isEditable=true, defaultValue
 	  ] as Node[];
 	});
 
-	const renderElement = useCallback(props => {
-		switch (props.element.type) {
-			case 'code':
-				return <CodeElement {...props} />
-				break;
-			case 'title-1':
-				return <Title1Element {...props} />
-				break;
-			case 'title-2':
-				return <Title2Element {...props} />
-				break;
-			case 'title-3':
-				return <Title3Element {...props} />
-				break;
-			default:
-				return <DefaultElement {...props} />
-		}
-	}, []);
+	const renderElement = useCallback(renderElementFunction, []);
 
-	const renderLeaf = useCallback(props => {
-		return <Leaf {...props} />
-	}, []);
+	const renderLeaf = useCallback(props => <Leaf {...props} />, []);
 
 	useEffect(() => {
 		if(setEditorContent) setEditorContent(value);
@@ -138,6 +108,7 @@ const SlateEditor = ({ setEditorContent=undefined, isEditable=true, defaultValue
 		      editor={editor}
 		      value={value}
 		      onChange={newValue => {
+
 		      	setValue(newValue);
 		      	if(setEditorContent) setEditorContent(newValue);
 
@@ -149,7 +120,7 @@ const SlateEditor = ({ setEditorContent=undefined, isEditable=true, defaultValue
 		    	}}
 		    >
 		    	{
-		    		isEditable&&
+		    		isEditable &&
 		    		<Toolbar 
 			    		editor={editor} 
 			    		buttonsWrapperRef={buttonsWrapperRef}
@@ -160,40 +131,39 @@ const SlateEditor = ({ setEditorContent=undefined, isEditable=true, defaultValue
 		    	}
 		    	
 		    	<SlateWrapperWithBorder>
-		    	
-		      <Editable 
-		      	readOnly={!isEditable}
+			      <Editable 
+			      	readOnly={!isEditable}
 
-		      	renderElement={renderElement}
-		      	renderLeaf={renderLeaf}
+			      	renderElement={renderElement}
+			      	renderLeaf={renderLeaf}
 
-		      	onKeyDown={event => {
+			      	onKeyDown={event => {
 
-		      		if(!event.ctrlKey) {
-		      			return;
-		      		}
+			      		if(!event.ctrlKey) {
+			      			return;
+			      		}
 
-		      		switch(event.key) {
-		      			case '`': {
-		      				event.preventDefault();
-				          CustomEditor.toggleCodeBlock(editor);
-				          break;
-		      			}
+			      		switch(event.key) {
+			      			case '`': {
+			      				event.preventDefault();
+					          CustomEditor.toggleCodeBlock(editor);
+					          break;
+			      			}
 
-		      			case 'b': {
-		      				event.preventDefault();
-		      				CustomEditor.toggleBoldMark(editor);
-		      				break;
-		      			}
+			      			case 'b': {
+			      				event.preventDefault();
+			      				CustomEditor.toggleBoldMark(editor);
+			      				break;
+			      			}
 
-		      			case 'i': {
-		      				event.preventDefault();
-		      				CustomEditor.toggleItalicMark(editor);
-		      				break;
-		      			}
-		      		}
-		      	}}
-		      />
+			      			case 'i': {
+			      				event.preventDefault();
+			      				CustomEditor.toggleItalicMark(editor);
+			      				break;
+			      			}
+			      		}
+			      	}}
+			      />
 		      </SlateWrapperWithBorder>
 		    </Slate>
 	    </SlateWrapper>
