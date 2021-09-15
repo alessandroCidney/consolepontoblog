@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react';
 
 // Next.js
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+
+// Components
+import Header from '../../components/Header';
 
 // Services
 import { database, ref, child, get } from '../../services/firebase';
@@ -13,35 +17,40 @@ import { Node } from 'slate';
 // Components
 import SlateEditor from '../../components/SlateEditor';
 
-const Post = () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	console.log(context.query.id)
+
+	const { id } = context.query;
+	const baseURL = 'http://localhost:3000';
+
+	const response = await fetch(`${baseURL}/api/posts/get/${id}`);
+	const data = await response.json();
+
+	return {
+		props: {			
+			data
+		}
+	};
+}	
+
+const Post = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const [editorContent, setEditorContent] = useState<Node[]>([]);
 
-	const router = useRouter();
-	const { id } = router.query;
+	console.log(data);
 
-	useEffect(async () => {
-		if(!id) return;
-
-		const dbRef = ref(database);
-
-		const snapshot = await get(child(dbRef, `posts/${id}`));
-
-		if(snapshot.exists()) {
-			console.log(snapshot.val());
-			setEditorContent(snapshot.val().content);
-		} else {
-			console.log('No data');
-		}
-
-	}, [router]);
+	useEffect(() => {
+		if(!data.error) setEditorContent(data);
+	}, []);
 
 	return (
 		<>
+			<Header />
 			{
 				(editorContent.length!==0) &&
 				<SlateEditor
 					isEditable={false}
-					defaultValue={editorContent}
+					withBorder={false}
+//					defaultValue={editorContent}
 				>
 					
 				</SlateEditor>
@@ -52,4 +61,4 @@ const Post = () => {
 
 export default Post;
 
-// -MjVw5rlrIBaIOuEcVTC
+// -Mje2hKTtFTFkeYLxdv2

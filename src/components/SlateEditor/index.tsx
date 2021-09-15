@@ -27,12 +27,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 type SlateEditorProps = {
 	setEditorContent?: () => void | undefined;
 	isEditable?: boolean;
+	withBorder?: boolean;
 	defaultValue?: Node[] | undefined;
 }
 
 const SlateEditor = ({ 
 	setEditorContent=undefined, 
 	isEditable=true, 
+	withBorder=true,
 	defaultValue=undefined 
 }: SlateEditorProps) => {
 	
@@ -75,7 +77,7 @@ const SlateEditor = ({
 			setValue(defaultValue);
 		}
 
-		if(slateWrapperRef) {
+		/*if(slateWrapperRef) {
 			slateWrapperRef.current?.addEventListener('dblclick', e => {
 				setButtonsWrapperDisplay('flex');
 
@@ -97,7 +99,7 @@ const SlateEditor = ({
 
 				console.log(e.type)
 			});
-		}
+		}*/
 	}, [slateWrapperRef]);
 
 	return (
@@ -130,7 +132,9 @@ const SlateEditor = ({
 			    	/>
 		    	}
 		    	
-		    	<SlateWrapperWithBorder>
+		    	<SlateWrapperWithBorder
+		    		withBorder={withBorder}
+		    	>
 			      <Editable 
 			      	readOnly={!isEditable}
 

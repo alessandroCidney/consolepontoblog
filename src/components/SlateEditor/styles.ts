@@ -12,7 +12,7 @@ export const SlateWrapper = styled.div`
 `;
 
 export const SlateWrapperWithBorder = styled.div`
-	border: 1px solid #ddd;
+	${props => props.withBorder && 'border: 1px solid #ddd;'}
 
 	width: 100%;
 	min-height: 100vh;;
@@ -105,7 +105,7 @@ export const ButtonsWrapper = styled.div`
 
 	overflow: hidden;
 
-	display: none;
+	display: flex;
 
 	${props => props.topDistance && `top: ${props.topDistance+90}px;`}
 	${props => props.leftDistance && `left: ${props.leftDistance+100}px;`}

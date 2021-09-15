@@ -11,7 +11,7 @@ export const StyledLogo = styled.div`
 	color: #000;
 
 	font-size: 1rem;
-	font-weight: 600;
+	font-weight: normal;
 
 	height: 100%;
 	width: 200px;
@@ -26,7 +26,7 @@ export const StyledHeader = styled.header`
 	width: 100%;
 
 	background-color: #fff;
-	box-shadow: 0 1px 3px #ddd;
+	box-shadow: 0 1px 2px #cecece;
 
 	display: flex;
 	align-items: center;
