@@ -5,9 +5,9 @@ const Header = () => {
 
 	return (
 		<StyledHeader>
-			<StyledLogo>consolepontoblog</StyledLogo>
+			<StyledLogo>CONSOLE.BLOG()</StyledLogo>
 		</StyledHeader>
 	);
-}
+};
 
 export default Header;

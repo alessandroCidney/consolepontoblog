@@ -11,7 +11,7 @@ export const StyledLogo = styled.div`
 	color: #000;
 
 	font-size: 1rem;
-	font-weight: normal;
+	font-weight: 900;
 
 	height: 100%;
 	width: 200px;

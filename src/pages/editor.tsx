@@ -58,22 +58,25 @@ const EditorPage: NextPage = () => {
 
 	return (
 		<>
+			<Head>
+				<title>New Post</title>
+			</Head>
 			<Header />
-	  	<Main>
-	  		<button onClick={() => console.log(editorContent)}>
-	  			Show content
-	  		</button>
+		  	<Main>
+		  		<button onClick={() => console.log(editorContent)}>
+		  			Show content
+		  		</button>
 
-		  	<SlateEditor 
-		  		setEditorContent={setEditorContent}
-		  	/>
-		  	<button
-		  		onClick={test}
-		  	>
-		  		Click!
-		  	</button>
-	    </Main>
-	</>
+			  	<SlateEditor 
+			  		setEditorContent={setEditorContent}
+			  	/>
+			  	<button
+			  		onClick={test}
+			  	>
+			  		Click!
+			  	</button>
+		    </Main>
+		</>
 	);
 }
 
