@@ -31,6 +31,7 @@ const Login: NextPage = () => {
 						customBackgroundColor={"#fff"}
 						customFontColor={"#000"}
 						customHoverBackgroundColor={"#fff"}
+						customIcon={["fab", "google"]}
 					>
 						ENTRAR COM O GOOGLE
 					</Button>

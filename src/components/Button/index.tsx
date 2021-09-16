@@ -11,7 +11,11 @@ type ButtonProps = HTMLButtonElement & {
 	customWidth?: number;
 	customHeight?: number;
 	children: ReactNode;
-}
+	customBackgroundColor?: string;
+	customBorderColor?: string,
+	customFontColor?: string;
+	customIcon?: string;
+};
 
 const Button = ({ 
 	customWidth, 
@@ -20,6 +24,7 @@ const Button = ({
 	customHoverBackgroundColor,
 	customBorderColor,
 	customFontColor,
+	customIcon,
 	children 
 }: ButtonProps) => {
 
@@ -32,6 +37,11 @@ const Button = ({
 			customFontColor={customFontColor}
 			customHoverBackgroundColor={customHoverBackgroundColor}
 		>
+			{	
+				customIcon &&
+				<FontAwesomeIcon icon={customIcon} />
+			}
+
 			{ children }
 		</StyledButton>
 	);

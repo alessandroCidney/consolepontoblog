@@ -18,6 +18,11 @@ export const StyledButton = styled.button`
 
 	cursor: pointer;
 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 17px;
+
 	&:hover {
 		background-color: ${props => props.customHoverBackgroundColor ? props.customHoverBackgroundColor :'rgb(33, 33, 33)'};
 	}
