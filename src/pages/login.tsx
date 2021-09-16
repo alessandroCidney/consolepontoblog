@@ -26,6 +26,15 @@ const Login: NextPage = () => {
 				>
 					<Logo />
 
+					<Button
+						customBorderColor={"#cecece"}
+						customBackgroundColor={"#fff"}
+						customFontColor={"#000"}
+						customHoverBackgroundColor={"#fff"}
+					>
+						ENTRAR COM O GOOGLE
+					</Button>
+
 					<InputsDivision>
 
 						<InputAndLabelDivision>

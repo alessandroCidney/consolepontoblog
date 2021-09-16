@@ -6,9 +6,9 @@ export const StyledButton = styled.button`
 	height: ${props => props.customHeight ? props.customHeight : '40'}px;
 
 	background-color: ${props => props.customBackgroundColor ? props.customBackgroundColor : '#000'};
-	color: #fff;
+	color: ${props => props.customFontColor ? props.customFontColor : '#fff'};
 
-	border: 0;
+	border: ${props => props.customBorderColor ? `1px solid ${props.customBorderColor}` : 0};
 	border-radius: 8px;
 
 	font-weight: 800;
@@ -19,6 +19,6 @@ export const StyledButton = styled.button`
 	cursor: pointer;
 
 	&:hover {
-		background-color: rgb(33, 33, 33);
+		background-color: ${props => props.customHoverBackgroundColor ? props.customHoverBackgroundColor :'rgb(33, 33, 33)'};
 	}
 `;
