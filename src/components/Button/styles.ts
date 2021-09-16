@@ -5,7 +5,7 @@ export const StyledButton = styled.button`
 	width: ${props => props.customWidth ? props.customWidth : '326'}px;
 	height: ${props => props.customHeight ? props.customHeight : '40'}px;
 
-	background-color: #000;
+	background-color: ${props => props.customBackgroundColor ? props.customBackgroundColor : '#000'};
 	color: #fff;
 
 	border: 0;

@@ -10,12 +10,18 @@ type ButtonProps = HTMLButtonElement & {
 	children: ReactNode;
 }
 
-const Button = ({ customWidth, customHeight, children }: ButtonProps) => {
+const Button = ({ 
+	customWidth, 
+	customHeight, 
+	customBackgroundColor, 
+	children 
+}: ButtonProps) => {
 
 	return (
 		<StyledButton
 			customWidth={customWidth}
 			customHeight={customHeight}
+			customBackgroundColor={customBackgroundColor}
 		>
 			{ children }
 		</StyledButton>
