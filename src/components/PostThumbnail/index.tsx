@@ -8,6 +8,7 @@ export type PostThumbnailProps = {
 	created_at: string;
 	author: string;
 	author_profile_photo: string;
+	mode: string;
 };
 
 const PostThumbnail = ({ 
@@ -15,13 +16,15 @@ const PostThumbnail = ({
 	image, 
 	created_at, 
 	author, 
-	author_profile_photo 
+	author_profile_photo,
+	mode
 }: PostThumbnailProps) => {
 
 	return (
 		<>
 			<StyledPost
 				imageURL={image}
+				mode={mode}
 			>
 				<h1>{ title }</h1>
 				
@@ -29,9 +32,10 @@ const PostThumbnail = ({
 				
 				<ProfilePhoto 
 					profilePhotoURL={author_profile_photo}
+					mode={mode}
 				/>
 
-				<PostDate>{ created_at }</PostDate>
+				<PostDate mode={mode}>{ created_at }</PostDate>
 			</StyledPost>
 		</>
 	);

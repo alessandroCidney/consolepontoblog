@@ -59,17 +59,38 @@ const MainPage: NextPage = () => {
 			<Header />
 
 			<StyledMain>
+
 				{
-					posts.map((post, index) => 
-						<PostThumbnail 
-							key={`main-post-${index}`}
-							title={post.title}
-							image={post.image}
-							created_at={post.created_at}
-							author={post.author}
-							author_profile_photo={post.author_profile_photo}
+					posts.length > 0 &&
+					<FlexRow>
+						<PostThumbnail
+							title={posts[0].title}
+							image={posts[0].image}
+							created_at={posts[0].created_at}
+							author={posts[0].author}
+							author_profile_photo={posts[0].author_profile_photo}
 						/>
-					)
+
+						<FlexColumn>
+							<PostThumbnail 
+								mode={'mini'}
+								title={posts[1].title}
+								image={posts[1].image}
+								created_at={posts[1].created_at}
+								author={posts[1].author}
+								author_profile_photo={posts[1].author_profile_photo}
+							/>
+
+							<PostThumbnail 
+								mode={'mini'}
+								title={posts[2].title}
+								image={posts[2].image}
+								created_at={posts[2].created_at}
+								author={posts[2].author}
+								author_profile_photo={posts[2].author_profile_photo}
+							/>
+						</FlexColumn>
+					</FlexRow>
 				}
 			</StyledMain>
 		</>
@@ -80,13 +101,32 @@ const StyledMain = styled.main`
 	width: 100%;
 	min-height: 100vh;
 
-	padding-top: 55px;
+	padding-top: 30px;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	gap: 31px;
+`;
+
+const FlexRow = styled.div`
+	width: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 42px;
+	flex-direction: row;
+`;
+
+const FlexColumn = styled.div`
+	width: 367px;
+	height: 522px;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: column;
 `;
 
 export default MainPage;

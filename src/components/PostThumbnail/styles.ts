@@ -17,8 +17,8 @@ const BackgroundAnimantion = keyframes`
 `;
 
 export const StyledPost = styled.div`
-	width: 764px;
-	height: 475px;
+	width: 664px;
+	height: 350px;
 
 	padding: 86px 50px;
 
@@ -29,7 +29,6 @@ export const StyledPost = styled.div`
 
 	background-position: center;
 
-
 	cursor: pointer;
 
 	position: relative;
@@ -38,14 +37,35 @@ export const StyledPost = styled.div`
 		width: 532px;
 
 		font-weight: 900;
+		font-size: 36px;
 	}
 
 	span.post-thumb-author {
 		font-weight: 900;
 	}
 
+	${props => {
+		if(props.mode === 'mini') {
+			return (
+				`
+					width: 350px;
+					height: 160px;
+
+					padding: 42px 23px;
+
+					font-size: 9px;
+
+					> h1 {
+						width: 254px;
+						font-size: 17px;
+					}
+				`
+			);
+		}
+	}}
+
 	&:hover {
-		animation: ${BackgroundAnimantion} 15s ease-in-out infinite;
+		animation: ${BackgroundAnimantion} 5s linear infinite;
 	}
 `;
 
@@ -63,6 +83,20 @@ export const ProfilePhoto = styled.div`
 
 	top: 36px;
 	right: 36px;
+
+	${props => {
+		if(props.mode === 'mini') {
+			return (
+				`	
+					width: 36px;
+					height: 36px;
+
+					top: 27px;
+					right: 27px;
+				`			
+			);
+		}
+	}}
 `;
 
 export const PostDate = styled.div`
@@ -74,4 +108,16 @@ export const PostDate = styled.div`
 
 	bottom: 36px;
 	right: 36px;
+
+	${props => {
+		if(props.mode === 'mini') {
+			return (
+				`
+					width: 120px;	
+					bottom: 27px;
+					right: 27px;
+				`			
+			);
+		}
+	}}
 `;
