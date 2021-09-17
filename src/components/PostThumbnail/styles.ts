@@ -17,7 +17,7 @@ const BackgroundAnimantion = keyframes`
 `;
 
 export const StyledPost = styled.div`
-	width: 714px;
+	width: 764px;
 	height: 475px;
 
 	padding: 86px 50px;
