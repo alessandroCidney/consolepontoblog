@@ -5,6 +5,7 @@ import React, { useMemo, useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import type { NextPage } from 'next';
 
 // Components
 import Header from '../components/Header';
