@@ -25,7 +25,8 @@ const Button = ({
 	customBorderColor,
 	customFontColor,
 	customIcon,
-	children 
+	children,
+	...rest 
 }: ButtonProps) => {
 
 	return (
@@ -36,6 +37,7 @@ const Button = ({
 			customBorderColor={customBorderColor}
 			customFontColor={customFontColor}
 			customHoverBackgroundColor={customHoverBackgroundColor}
+			{...rest}
 		>
 			{	
 				customIcon &&

@@ -1,4 +1,4 @@
-// Next Components
+// Next.js
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -7,12 +7,49 @@ import Logo from '../components/Logo';
 import Button from '../components/Button';
 
 // Styled Components
-import styled from 'styled-components';
+import {
+	Main,
+	Form,
+	InputsDivision,
+	InputAndLabelDivision,
+	StyledLabel,
+	StyledInput,
+	Line,
+	LinesFlexRow
+} from '../styles/login';
+
+// Services
+import { getAuth, signInWithPopup, GoogleAuthProvider } from '../services/firebase';
 
 // Types
 import type { NextPage } from 'next';
 
 const Login: NextPage = () => {
+
+	async function signInWithGoogle() {
+		try {
+			const provider = new GoogleAuthProvider();
+
+			const auth = getAuth();
+
+			const result = await signInWithPopup(auth, provider);
+
+			const credential = GoogleAuthProvider.credentialFromResult(result);
+
+			console.log(credential);
+
+			const user = result.user;
+
+			console.log(user);
+
+			alert("Autenticação realizada com sucesso!");	
+		} catch (err) {
+			alert("Houve um erro durante a autenticação");
+
+			console.log("Houve um erro durante a autenticação", err);
+		}
+		
+	};
 
 	return (
 		<>
@@ -32,6 +69,7 @@ const Login: NextPage = () => {
 						customFontColor={"#000"}
 						customHoverBackgroundColor={"#fff"}
 						customIcon={["fab", "google"]}
+						onClick={() => alert("Potato")}
 					>
 						ENTRAR COM O GOOGLE
 					</Button>
@@ -69,97 +107,6 @@ const Login: NextPage = () => {
 	);
 }
 
-const Main = styled.main`
-	width: 100%;
-	height: 100vh;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
-`;
-
-const Form = styled.form`
-	min-width: 63px;
-	min-height: 325px;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-
-	gap: 39px;
-`;
-
-const InputsDivision = styled.div`
-	min-width: 386px;
-	min-height: 171px;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-
-	gap: 30px;
-`;
-
-const InputAndLabelDivision = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-
-	gap: 16px;
-
-	min-width: 386px;
-`;
-
-const StyledLabel = styled.label`
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-
-	min-width: 386px;
-
-	padding-left: 14px;
-`;
-
-const StyledInput = styled.input`
-	min-width: 386px;
-	min-height: 41px;
-
-	border-radius: 8px;
-	border: 1px solid #000;
-
-	padding-left: 11px;
-
-	font-size: 14px;
-
-	transition: .2s;
-
-	&:focus {
-		font-size: 15px;
-	}
-`;
-
-const Line = styled.div`
-	width: 80px;
-	height: 1px;
-
-	background-color: #a8a8b3;
-`;
-
-const LinesFlexRow = styled.div`
-	width: 100%;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	gap: 5px;
-
-	flex-direction: row;
-
-	color: #a8a8b3;
-`;
 
 export default Login;
