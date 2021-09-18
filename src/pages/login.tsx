@@ -1,6 +1,7 @@
 // Next.js
 import Head from 'next/head';
 import Link from 'next/link';
+import Router from 'next/router'
 
 // Components
 import Logo from '../components/Logo';
@@ -25,7 +26,6 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from '../services/fireba
 import type { NextPage } from 'next';
 
 const Login: NextPage = () => {
-
 	async function signInWithGoogle() {
 		try {
 			const provider = new GoogleAuthProvider();
@@ -42,7 +42,9 @@ const Login: NextPage = () => {
 
 			console.log(user);
 
-			alert("Autenticação realizada com sucesso!");	
+			alert("Autenticação realizada com sucesso!");
+
+			Router.push('/main');
 		} catch (err) {
 			alert("Houve um erro durante a autenticação");
 
@@ -69,7 +71,7 @@ const Login: NextPage = () => {
 						customFontColor={"#000"}
 						customHoverBackgroundColor={"#fff"}
 						customIcon={["fab", "google"]}
-						onClick={() => alert("Potato")}
+						onClick={() => signInWithGoogle()}
 					>
 						ENTRAR COM O GOOGLE
 					</Button>

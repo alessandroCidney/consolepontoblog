@@ -17,7 +17,7 @@ const BackgroundAnimantion = keyframes`
 `;
 
 export const StyledPost = styled.div`
-	width: 664px;
+	width: 48%;
 	height: 350px;
 
 	padding: 86px 50px;
@@ -34,10 +34,10 @@ export const StyledPost = styled.div`
 	position: relative;
 
 	> h1 {
-		width: 532px;
+		max-width: 532px;
 
 		font-weight: 900;
-		font-size: 36px;
+		font-size: 2rem;
 	}
 
 	span.post-thumb-author {

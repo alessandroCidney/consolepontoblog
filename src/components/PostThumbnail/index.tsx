@@ -28,7 +28,7 @@ const PostThumbnail = ({
 			>
 				<h1>{ title }</h1>
 				
-				<div>por <span class='post-thumb-author'>{ author }</span></div>
+				<div>por <span className='post-thumb-author'>{ author }</span></div>
 				
 				<ProfilePhoto 
 					profilePhotoURL={author_profile_photo}
