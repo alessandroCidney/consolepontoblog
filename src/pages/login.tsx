@@ -36,6 +36,12 @@ const Login: NextPage = () => {
 						ENTRAR COM O GOOGLE
 					</Button>
 
+					<LinesFlexRow>
+						<Line />
+							Ou entre com email e senha
+						<Line />
+					</LinesFlexRow>
+
 					<InputsDivision>
 
 						<InputAndLabelDivision>
@@ -133,6 +139,27 @@ const StyledInput = styled.input`
 	&:focus {
 		font-size: 15px;
 	}
+`;
+
+const Line = styled.div`
+	width: 80px;
+	height: 1px;
+
+	background-color: #a8a8b3;
+`;
+
+const LinesFlexRow = styled.div`
+	width: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	gap: 5px;
+
+	flex-direction: row;
+
+	color: #a8a8b3;
 `;
 
 export default Login;
