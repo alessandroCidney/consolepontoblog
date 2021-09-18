@@ -9,10 +9,15 @@ export const SlateWrapper = styled.div`
 	padding: 20px;
 
 	text-align: justify;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 `;
 
 export const SlateWrapperWithBorder = styled.div`
-	${props => props.withBorder && 'border: 1px solid #ddd;'}
+	${props => props.withBorder && 'border: 1px solid #cecece;'}
 
 	width: 100%;
 	min-height: 100vh;;

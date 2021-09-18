@@ -28,6 +28,10 @@ const Home: NextPage = () => {
         <Link href='/editor'>
           <a>Editor</a>
         </Link>
+
+        <Link href='/main'>
+          <a>Main</a>
+        </Link>
       </main>
 
       <footer>

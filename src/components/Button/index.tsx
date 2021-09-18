@@ -1,5 +1,5 @@
 // React
-import { ReactNode, HTMLButtonElement } from 'react';
+import { ReactNode, ButtonHTMLAttributes } from 'react';
 
 // Styled Components
 import { StyledButton } from './styles';
@@ -7,7 +7,7 @@ import { StyledButton } from './styles';
 // Font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type ButtonProps = HTMLButtonElement & {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	customWidth?: number;
 	customHeight?: number;
 	children: ReactNode;

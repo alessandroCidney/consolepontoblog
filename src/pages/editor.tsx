@@ -10,6 +10,7 @@ import type { NextPage } from 'next';
 // Components
 import Header from '../components/Header';
 import SlateEditor from '../components/SlateEditor';
+import DropImageZone from '../components/DropImageZone';
 
 // Styled Components
 import styled from 'styled-components';
@@ -28,12 +29,14 @@ const Main = styled.main`
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	gap: 10px;
 
 	padding-top: 100px;
 `;
 
 const EditorPage: NextPage = () => {
 	const [editorContent, setEditorContent] = useState<Node[]>([]);
+	const [thumbnailImage, setThumbnailImage] = useState<File>();
 
 	const router = useRouter();
 
@@ -64,6 +67,10 @@ const EditorPage: NextPage = () => {
 			</Head>
 			<Header />
 		  	<Main>
+		  		<DropImageZone
+		  			setFile={setThumbnailImage}
+		  		/>
+
 		  		<button onClick={() => console.log(editorContent)}>
 		  			Show content
 		  		</button>
