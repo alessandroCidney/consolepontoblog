@@ -18,7 +18,7 @@ const BackgroundAnimantion = keyframes`
 
 export const StyledPost = styled.div`
 	width: 48%;
-	height: 350px;
+	height: 522px;
 
 	padding: 86px 50px;
 
@@ -48,8 +48,8 @@ export const StyledPost = styled.div`
 		if(props.mode === 'mini') {
 			return (
 				`
-					width: 350px;
-					height: 160px;
+					width: 396px;
+					height: 244px;
 
 					padding: 42px 23px;
 
