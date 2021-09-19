@@ -61,7 +61,7 @@ const SlateEditor = ({
 		return [
 	    {
 	      type: 'paragraph',
-	      children: [{ text: 'A line of text in a paragraph.' }],
+	      children: [{ text: 'Digite o conteúdo do post aqui (^ - ^)' }],
 	    },
 	  ] as Node[];
 	});

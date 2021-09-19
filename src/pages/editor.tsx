@@ -5,12 +5,12 @@ import React, { useMemo, useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { NextPage } from 'next';
 
 // Components
 import Header from '../components/Header';
 import SlateEditor from '../components/SlateEditor';
 import DropImageZone from '../components/DropImageZone';
+import PostTitleInput from '../components/PostTitleInput';
 
 // Styled Components
 import styled from 'styled-components';
@@ -20,6 +20,9 @@ import { Node } from 'slate';
 
 // Firebase
 import { database, ref, set, push } from '../services/firebase';
+
+// Types
+import type { NextPage } from 'next';
 
 const Main = styled.main`
 	width: 100%;
@@ -71,9 +74,7 @@ const EditorPage: NextPage = () => {
 		  			setFile={setThumbnailImage}
 		  		/>
 
-		  		<button onClick={() => console.log(editorContent)}>
-		  			Show content
-		  		</button>
+		  		<PostTitleInput />
 
 			  	<SlateEditor 
 			  		setEditorContent={setEditorContent}

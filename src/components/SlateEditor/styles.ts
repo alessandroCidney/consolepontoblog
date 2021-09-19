@@ -2,11 +2,9 @@
 import styled, { keyframes } from 'styled-components';
 
 export const SlateWrapper = styled.div`
-	width: 60%;
-	min-width: 300px;
+	max-width: 60%;
+	min-width: 60%;
 	min-height: 100vh;
-
-	padding: 20px;
 
 	text-align: justify;
 
@@ -19,8 +17,9 @@ export const SlateWrapper = styled.div`
 export const SlateWrapperWithBorder = styled.div`
 	${props => props.withBorder && 'border: 1px solid #cecece;'}
 
-	width: 100%;
-	min-height: 100vh;;
+	max-width: 100%;
+	min-width: 100%;
+	min-height: 100vh;
 
 	padding: 20px;
 
@@ -99,14 +98,15 @@ export const ButtonsWrapper = styled.div`
 	width: 300px;
 	height: 40px;
 
+	align-self: flex-start;
+
 	animation: ${showButtonsWrapperAnimation} .5s; 
 
 	display: flex;
 	align-items: flex-end;
 	justify-content: flex-start;
 
-	border-radius: 5px;
-	box-shadow: 0 2px 3px #ddd;
+	border-radius: 5px 5px 0 0;
 
 	overflow: hidden;
 

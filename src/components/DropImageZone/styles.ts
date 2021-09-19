@@ -12,7 +12,7 @@ export const StyledDropImageZone = styled.button`
 
 	background-color: transparent;
 
-	width: 63%;
+	width: 60%;
 	min-height: 150px;
 
 	display: flex;
