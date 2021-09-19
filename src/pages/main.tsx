@@ -12,12 +12,17 @@ import PostThumbnail from '../components/PostThumbnail';
 // Styled Components
 import styled from 'styled-components';
 
+// Hooks
+import { useAuth } from '../hooks/useAuth';
+
 // Types
 import { PostThumbnailProps } from '../components/PostThumbnail';
 
 const MainPage: NextPage = () => {
 	const [posts, setPosts] = useState<PostThumbnailProps[]>([]);
-
+	
+	useAuth();
+	
 	useEffect(() => {
 
 		const formatter = new Intl.DateTimeFormat('pt', {
