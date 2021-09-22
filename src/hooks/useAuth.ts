@@ -5,11 +5,14 @@ import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from '../services/firebase';
 
 export type User = {
-	user_id: string;
-}
+	name: string;
+	avatar: string;
+	verified: boolean;
+	id: string;
+};
 
 const useAuth = () => {
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState({} as User);
 
 	const auth = getAuth();
 
@@ -17,7 +20,15 @@ const useAuth = () => {
 
 		onAuthStateChanged(auth, user => {
 			if(user) {
-				console.log(user);
+				const data: User = {
+					name: user.displayName,
+					avatar: user.photoURL,
+					verified: user.emailVerified,
+					id: user.uid
+				};
+
+				setUser(data);
+
 			} else {
 				console.log('User is signed out');
 			}
@@ -25,7 +36,7 @@ const useAuth = () => {
 
 	}, []);
 
-	return;
+	return user;
 };
 
 export {
