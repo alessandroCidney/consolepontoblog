@@ -34,6 +34,8 @@ export const StyledHeader = styled.header`
 
 	z-index: 10;
 
+	padding-right: 20px;
+
 	& ~ * {
 		transform: translateY(10vh);
 	}
