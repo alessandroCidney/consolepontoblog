@@ -12,6 +12,9 @@ import SlateEditor from '../components/SlateEditor';
 import DropImageZone from '../components/DropImageZone';
 import PostTitleInput from '../components/PostTitleInput';
 
+// Hooks
+import { useAuth } from '../hooks/useAuth';
+
 // Styled Components
 import styled from 'styled-components';
 
@@ -19,10 +22,17 @@ import styled from 'styled-components';
 import { Node } from 'slate';
 
 // Firebase
-import { database, ref, set, push } from '../services/firebase';
+import { 
+	database, 
+	ref, 
+	set, 
+	push,
+	firebaseStorage
+} from '../services/firebase';
 
 // Types
 import type { NextPage } from 'next';
+import { User } from '../hooks/useAuth';
 
 const Main = styled.main`
 	width: 100%;
@@ -43,19 +53,26 @@ const EditorPage: NextPage = () => {
 
 	const router = useRouter();
 
+	const { id }: User = useAuth();
+
 	async function test() {
 		try {
-			const postsRef = ref(database, 'posts');
+			const storage = firebaseStorage.getStorage();
+			
+			const reference = `images/${id}/${thumbnailImage.name}`;
 
-			const newPostsRef = push(postsRef);
+			const storageRef = firebaseStorage.ref(
+				storage, 
+				reference
+			);
 
-			console.log(newPostsRef);
-
-			await set(newPostsRef, {
-				content: editorContent
+			firebaseStorage.uploadBytes(storageRef, thumbnailImage).then((snapshot) => {
+				console.log(`Uploaded to ${reference}`);
 			});
 
-			router.push(`posts/${newPostsRef._path.pieces_[1]}`);
+			const downloadURL = await firebaseStorage.getDownloadURL(storageRef);
+
+			console.log(downloadURL);
 
 		} catch(err) {
 			console.log('error', err);

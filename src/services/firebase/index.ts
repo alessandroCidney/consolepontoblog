@@ -10,6 +10,8 @@ import {
   child 
 } from "firebase/database";
 
+import * as firebaseStorage from "firebase/storage";
+
 import { 
   GoogleAuthProvider, 
   getAuth, 
@@ -42,5 +44,6 @@ export {
   GoogleAuthProvider,
   getAuth,
   signInWithPopup,
-  onAuthStateChanged
+  onAuthStateChanged,
+  firebaseStorage
 };
