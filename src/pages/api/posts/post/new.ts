@@ -8,13 +8,31 @@ import formidable from 'formidable';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // Services
-import { firebaseStorage } from '../../../../services/firebase';
+import { firebaseStorage, firebaseDatabase } from '../../../../services/firebase';
 
 export const config = {
   api: {
     bodyParser: false,
   },
-}
+};
+
+async function savePostContentAndGetThePostKey(postContent: string) {
+  const db = firebaseDatabase.getDatabase();
+
+  const postData = {
+    post_content: postContent
+  };
+
+  const postListRef = firebaseDatabase.ref(db, 'posts');
+
+  const newPostRef = firebaseDatabase.push(postListRef);
+
+  firebaseDatabase.set(newPostRef, postData);
+
+  return {
+    postKey: newPostRef.key
+  }
+};
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,7 +45,7 @@ export default async function handler(
   
   form.keepExtensions = true;
   
-  form.parse(req, (err, fields, files) => {
+  form.parse(req, async (err, fields, files) => {
 
     if(!err) {
       const postContent = fields.post_content;
@@ -36,21 +54,23 @@ export default async function handler(
       if(!postThumbnail) {
         console.log("Error: without image");
         return;
-      }
+      };
 
       if(!postContent) {
         console.log("Error: without content");
         return;
-      }
+      };
 
-      
+      const { postKey } = await savePostContentAndGetThePostKey(postContent);
+
+      console.log(postKey);
 
       try {
         fs.unlinkSync(`./${postThumbnail.path}`);
       } catch (err) {
         console.log("Err during file removing", err);
         return;
-      }
+      };
     }
   });
 

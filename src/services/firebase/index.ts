@@ -1,14 +1,7 @@
 // Firebase
 import { initializeApp } from "firebase/app";
 
-import { 
-  getDatabase, 
-  ref, 
-  set, 
-  push, 
-  get, 
-  child 
-} from "firebase/database";
+import * as firebaseDatabase from "firebase/database";
 
 import * as firebaseStorage from "firebase/storage";
 
@@ -31,16 +24,9 @@ const firebaseConfig = {
 
 const firebase = initializeApp(firebaseConfig);
 
-const database = getDatabase();
-
 export {
   firebase,
-  database,
-  ref,
-  set,
-  push,
-  get,
-  child,
+  firebaseDatabase,
   GoogleAuthProvider,
   getAuth,
   signInWithPopup,

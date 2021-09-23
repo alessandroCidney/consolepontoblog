@@ -23,11 +23,7 @@ import styled from 'styled-components';
 import { Node } from 'slate';
 
 // Firebase
-import { 
-	database, 
-	ref, 
-	set, 
-	push,
+import {
 	firebaseStorage
 } from '../services/firebase';
 
@@ -102,7 +98,7 @@ const EditorPage: NextPage = () => {
 			</Head>
 			<Header />
 		  	<Main>
-		  		
+
 			  	<button
 			  		onClick={saveNewPost}
 			  	>

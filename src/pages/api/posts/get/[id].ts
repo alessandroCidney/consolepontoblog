@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // Services
-import { database, ref, child, get } from '../../../../services/firebase';
+import { firebaseDatabase } from '../../../../services/firebase';
 
 // Types
 type Data = {
@@ -16,10 +16,10 @@ export default async function handler(
   
   const { id } = req.query;
 
-  const dbRef = ref(database);
-  const snapshot = await get(child(dbRef, `posts/${id}`));
+  const dbRef = firebaseDatabase.ref(database);
+  const snapshot = await firebaseDatabase.get(child(dbRef, `posts/${id}`));
 
-  const { content } = snapshot.exists() ? snapshot.val() : undefined;
+  const { post_content } = snapshot.exists() ? snapshot.val() : undefined;
 
   console.log('content', content)
 
