@@ -30,5 +30,3 @@ export default async function handler(
   }
   
 };
-
-// https://stackoverflow.com/questions/65752932/internal-api-fetch-with-getserversideprops-next-js

@@ -5,6 +5,7 @@ import React, { useMemo, useState, useCallback } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 
 // Components
 import Header from '../components/Header';
@@ -77,8 +78,22 @@ const EditorPage: NextPage = () => {
 		} catch(err) {
 			console.log('error', err);
 		}
-		
 	}
+
+	async function saveNewPost() {
+		const baseURL = 'http://localhost:3000';
+
+		const formData = new FormData();
+
+		formData.append('post_content', JSON.stringify(editorContent));
+		formData.append('post_thumbnail', thumbnailImage);
+		formData.append('user_id', id);
+
+		await fetch(`${baseURL}/api/posts/post/new`, {
+			method: 'POST',
+			body: formData
+		});
+	};
 
 	return (
 		<>
@@ -87,6 +102,13 @@ const EditorPage: NextPage = () => {
 			</Head>
 			<Header />
 		  	<Main>
+		  		
+			  	<button
+			  		onClick={saveNewPost}
+			  	>
+			  		Click!
+			  	</button>
+
 		  		<DropImageZone
 		  			setFile={setThumbnailImage}
 		  		/>
@@ -96,11 +118,6 @@ const EditorPage: NextPage = () => {
 			  	<SlateEditor 
 			  		setEditorContent={setEditorContent}
 			  	/>
-			  	<button
-			  		onClick={test}
-			  	>
-			  		Click!
-			  	</button>
 		    </Main>
 		</>
 	);
