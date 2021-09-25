@@ -8,19 +8,26 @@ import formidable from 'formidable';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // Services
-import { firebaseStorage, firebaseDatabase } from '../../../../services/firebase';
+import { firebaseDatabase } from '../../../../services/firebase';
 
-export const config = {
-  api: {
-    bodyParser: false
-  }
+// Types
+type Data = {
+  name: string
 };
 
-async function savePostContentAndGetThePostKey(postContent: string) {
+async function savePostContentAndGetThePostKey(
+  postTitle: string, 
+  postContent: string,
+  authorId: string,
+  createdAt: string
+) {
   const db = firebaseDatabase.getDatabase();
 
   const postData = {
-    post_content: postContent
+    post_title: postTitle,
+    post_content: postContent,
+    author_id: authorId,
+    created_at: createdAt
   };
 
   const postListRef = firebaseDatabase.ref(db, 'posts');
@@ -29,9 +36,7 @@ async function savePostContentAndGetThePostKey(postContent: string) {
 
   firebaseDatabase.set(newPostRef, postData);
 
-  return {
-    postKey: newPostRef.key
-  };
+  return newPostRef.key;
 };
 
 export default async function handler(
@@ -39,8 +44,22 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   
-  
+  const { 
+    post_title,
+    post_content,
+    author_id,
+    created_at,
+  } = req.body;
 
-  res.status(200).json({});
+  const postKey = await savePostContentAndGetThePostKey(
+    post_title,
+    post_content,
+    author_id,
+    created_at
+  );
+
+  res.status(200).json({
+    post_key: postKey
+  });
   
 };

@@ -39,7 +39,7 @@ const Post = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) 
 	console.log(data);
 
 	useEffect(() => {
-		if(!data.error) setEditorContent(data);
+		if(!data.error) setEditorContent(data.post_content);
 	}, []);
 
 	return (

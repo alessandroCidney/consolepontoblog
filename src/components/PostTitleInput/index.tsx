@@ -4,7 +4,12 @@ import { useRef, useState } from 'react';
 // Styled Components
 import { StyledTextArea } from './styles';
 
-const PostTitleInput = () => {
+type PostTitleInputProps = {
+	postTitle: string;
+	setPostTitle: () => void;
+};
+
+const PostTitleInput = ({ postTitle, setPostTitle }: PostTitleInputProps) => {
 	const [textAreaHeight, setTextAreaHeight] = useState(80);
 
 	return (
@@ -16,6 +21,8 @@ const PostTitleInput = () => {
 											)}
 			textAreaHeight={textAreaHeight}
 			maxLength={200}
+			onChange={e => setPostTitle(e.target.value)}
+			value={postTitle}
 		/>
 	);
 };

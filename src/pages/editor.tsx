@@ -1,5 +1,5 @@
 // React
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 
 // Next.js
 import Head from 'next/head';
@@ -45,6 +45,7 @@ const Main = styled.main`
 `;
 
 const EditorPage: NextPage = () => {
+	const [editorTitle, setEditorTitle] = useState('');
 	const [editorContent, setEditorContent] = useState<Node[]>([]);
 	const [thumbnailImage, setThumbnailImage] = useState<File>();
 
@@ -52,31 +53,39 @@ const EditorPage: NextPage = () => {
 
 	const { id }: User = useAuth();
 
-	async function test() {
+	async function saveThumbnailInStorage(postKey: string) {
 		try {
 			const storage = firebaseStorage.getStorage();
 			
-			const reference = `images/${id}/${thumbnailImage.name}`;
+			const reference = `images/posts/${postKey}/${thumbnailImage.name}`;
 
 			const storageRef = firebaseStorage.ref(
 				storage, 
 				reference
 			);
 
-			firebaseStorage.uploadBytes(storageRef, thumbnailImage).then((snapshot) => {
-				console.log(`Uploaded to ${reference}`);
-			});
+			await firebaseStorage.uploadBytes(storageRef, thumbnailImage)
 
 			const downloadURL = await firebaseStorage.getDownloadURL(storageRef);
 
-			console.log(downloadURL);
+			return downloadURL;
 
 		} catch(err) {
 			console.log('error', err);
-		}
-	}
+			return;
+		};
+	};
 
-	async function saveNewPost() {
+	async function saveThePostContentAndGetThePostKey() {
+		const formatter = new Intl.DateTimeFormat('pt', {
+			locale: 'pt-br',
+			month: 'long',
+			day: 'numeric',
+			year: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit'
+		});
+
 		const baseURL = 'http://localhost:3000';
 
 		const formData = new FormData();
@@ -85,11 +94,41 @@ const EditorPage: NextPage = () => {
 		formData.append('post_thumbnail', thumbnailImage);
 		formData.append('user_id', id);
 
-		await fetch(`${baseURL}/api/posts/post/new`, {
+		const results = await fetch(`${baseURL}/api/posts/post/new`, {
 			method: 'POST',
+			headers: {
+				"Content-Type": "application/json"
+			},
 			body: JSON.stringify({
+				post_title: editorTitle,
 				post_content: JSON.stringify(editorContent),
-				author_id: id
+				author_id: id,
+				created_at: formatter.format(new Date())
+			})
+		})
+			.then(response => response.json())
+			.then(data => data);
+
+		return results.post_key;
+	};
+
+	async function saveNewPost() {
+		const postKey = await saveThePostContentAndGetThePostKey();
+
+		const downloadURL = await saveThumbnailInStorage(postKey);
+
+		const baseURL = 'http://localhost:3000';
+		
+		await fetch(`${baseURL}/api/posts/post/update`, {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				updates: {
+					download_url: downloadURL
+				},
+				post_key: postKey
 			})
 		});
 	};
@@ -112,7 +151,10 @@ const EditorPage: NextPage = () => {
 		  			setFile={setThumbnailImage}
 		  		/>
 
-		  		<PostTitleInput />
+		  		<PostTitleInput 
+		  			postTitle={editorTitle}
+		  			setPostTitle={setEditorTitle}
+		  		/>
 
 			  	<SlateEditor 
 			  		setEditorContent={setEditorContent}

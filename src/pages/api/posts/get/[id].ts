@@ -16,15 +16,17 @@ export default async function handler(
   
   const { id } = req.query;
 
+  const database = firebaseDatabase.getDatabase();
+
   const dbRef = firebaseDatabase.ref(database);
-  const snapshot = await firebaseDatabase.get(child(dbRef, `posts/${id}`));
+  const snapshot = await firebaseDatabase.get(firebaseDatabase.child(dbRef, `posts/${id}`));
 
-  const { post_content } = snapshot.exists() ? snapshot.val() : undefined;
+  const postData = snapshot.exists() ? snapshot.val() : undefined;
 
-  console.log('content', content)
+  console.log(postData)
 
-  if(!!content) {
-    res.status(200).json(content);
+  if(!!postData) {
+    res.status(200).json(postData);
   } else {
     res.status(404).json({ error: "post not found" });
   }
