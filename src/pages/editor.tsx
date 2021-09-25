@@ -87,7 +87,10 @@ const EditorPage: NextPage = () => {
 
 		await fetch(`${baseURL}/api/posts/post/new`, {
 			method: 'POST',
-			body: formData
+			body: JSON.stringify({
+				post_content: JSON.stringify(editorContent),
+				author_id: id
+			})
 		});
 	};
 

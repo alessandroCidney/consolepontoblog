@@ -12,8 +12,8 @@ import { firebaseStorage, firebaseDatabase } from '../../../../services/firebase
 
 export const config = {
   api: {
-    bodyParser: false,
-  },
+    bodyParser: false
+  }
 };
 
 async function savePostContentAndGetThePostKey(postContent: string) {
@@ -31,7 +31,7 @@ async function savePostContentAndGetThePostKey(postContent: string) {
 
   return {
     postKey: newPostRef.key
-  }
+  };
 };
 
 export default async function handler(
@@ -39,40 +39,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   
-  const form = new formidable.IncomingForm();
   
-  form.uploadDir = "./";
-  
-  form.keepExtensions = true;
-  
-  form.parse(req, async (err, fields, files) => {
-
-    if(!err) {
-      const postContent = fields.post_content;
-      const postThumbnail = files.post_thumbnail;
-
-      if(!postThumbnail) {
-        console.log("Error: without image");
-        return;
-      };
-
-      if(!postContent) {
-        console.log("Error: without content");
-        return;
-      };
-
-      const { postKey } = await savePostContentAndGetThePostKey(postContent);
-
-      console.log(postKey);
-
-      try {
-        fs.unlinkSync(`./${postThumbnail.path}`);
-      } catch (err) {
-        console.log("Err during file removing", err);
-        return;
-      };
-    }
-  });
 
   res.status(200).json({});
   
