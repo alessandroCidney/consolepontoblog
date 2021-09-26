@@ -40,6 +40,7 @@ const Post = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) 
 	const [postImageURL, setPostImageURL] = useState('');
 	const [editorContent, setEditorContent] = useState<Node[]>([]);
 	const [postCreationDate, setPostCreationDate] = useState('');
+	const [postTitle, setPostTitle] = useState('');
 
 	console.log(data);
 
@@ -48,6 +49,7 @@ const Post = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) 
 			setEditorContent(JSON.parse(data.post_content));
 			setPostImageURL(data.download_url);
 			setPostCreationDate(data.created_at);
+			setPostTitle(data.post_title);
 		}
 	}, []);
 
@@ -60,8 +62,7 @@ const Post = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) 
 				/>
 				<PostTitle>
 					<h1>
-						Slate: Um incrível framework para criar editores de texto.
-						Aprenda hoje mesmo!
+						{ postTitle }
 					</h1>
 
 					<div>Escrito por <span>Cídney</span></div>
