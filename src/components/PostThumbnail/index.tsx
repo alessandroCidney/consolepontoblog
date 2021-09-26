@@ -1,3 +1,6 @@
+// Next.js
+import Router from 'next/router';
+
 // Styled Components
 import { StyledPost, ProfilePhoto, PostDate } from './styles';
 
@@ -8,6 +11,7 @@ export type PostThumbnailProps = {
 	created_at: string;
 	author: string;
 	author_profile_photo: string;
+	post_id: string;
 	mode: string;
 };
 
@@ -17,6 +21,7 @@ const PostThumbnail = ({
 	created_at, 
 	author, 
 	author_profile_photo,
+	post_id,
 	mode
 }: PostThumbnailProps) => {
 
@@ -25,6 +30,7 @@ const PostThumbnail = ({
 			<StyledPost
 				imageURL={image}
 				mode={mode}
+				onClick={() => Router.push(`/posts/${post_id}`)}
 			>
 				<h1>{ title }</h1>
 				

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 // Next.js
 import Head from 'next/head';
 import type { NextPage } from 'next';
+import { GetServerSideProps } from 'next';
+import { InferGetStaticPropsType } from 'next';
 
 // Components
 import Header from '../components/Header';
@@ -18,12 +20,43 @@ import { useAuth } from '../hooks/useAuth';
 // Types
 import { PostThumbnailProps } from '../components/PostThumbnail';
 
-const MainPage: NextPage = () => {
+type PostsArrayItem = {
+	author_id: string;
+	created_at: string;
+	download_url: string;
+	post_content: string;
+	post_id: string;
+	post_title: string;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const baseURL = 'http://localhost:3000';
+
+	const response = await fetch(`${baseURL}/api/posts/all`);
+	const data = await response.json();
+
+	return {
+		props: {			
+			data
+		}
+	};
+};
+
+const MainPage: NextPage = (
+	{ data }: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
 	const [posts, setPosts] = useState<PostThumbnailProps[]>([]);
+	const [postsArray, setPostsArray] = useState<PostsArrayItem[]>([]);
 	
 	useAuth();
-	
+
 	useEffect(() => {
+
+		setPostsArray(Object.entries(data).map(e => {
+			e[1].post_id = e[0];
+
+			return e[1];
+		}));
 
 		const formatter = new Intl.DateTimeFormat('pt', {
 			locale: 'pt-br',
@@ -96,6 +129,21 @@ const MainPage: NextPage = () => {
 							/>
 						</FlexColumn>
 					</FlexRow>
+				}
+
+				{
+					postsArray.map(post => (
+						<PostThumbnail 
+							key={`post-id-${post.post_id}`}
+							post_id={post.post_id}
+							mode={'mini'}
+							title={post.post_title}
+							image={post.download_url}
+							created_at={post.created_at}
+							author={post.author_id}
+							author_profile_photo={post.author_profile_photo}
+						/>
+					))
 				}
 			</StyledMain>
 		</>

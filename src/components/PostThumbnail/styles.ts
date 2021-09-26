@@ -16,7 +16,7 @@ const BackgroundAnimantion = keyframes`
 	}
 `;
 
-export const StyledPost = styled.div`
+export const StyledPost = styled.button`
 	width: 55%;
 	height: 522px;
 
@@ -32,6 +32,12 @@ export const StyledPost = styled.div`
 	cursor: pointer;
 
 	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+
+	border: 0;
 
 	> h1 {
 		max-width: 532px;

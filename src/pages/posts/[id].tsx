@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 // Next.js
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
+import { InferGetStaticPropsType } from 'next';
 
 // Components
 import Header from '../../components/Header';
@@ -34,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			data
 		}
 	};
-}	
+};
 
 const Post = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const [postImageURL, setPostImageURL] = useState('');
