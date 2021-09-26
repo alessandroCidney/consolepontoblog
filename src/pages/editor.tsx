@@ -131,6 +131,8 @@ const EditorPage: NextPage = () => {
 				post_key: postKey
 			})
 		});
+
+		router.push(`/posts/${postKey}`);
 	};
 
 	return (
