@@ -23,8 +23,6 @@ export default async function handler(
 
   const postData = snapshot.exists() ? snapshot.val() : undefined;
 
-  console.log(postData)
-
   if(!!postData) {
     res.status(200).json(postData);
   } else {

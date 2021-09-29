@@ -55,6 +55,7 @@ export const StyledPost = styled.button`
 			return (
 				`
 					width: 396px;
+					max-width: 100%;
 					height: 244px;
 
 					padding: 42px 23px;
@@ -65,6 +66,12 @@ export const StyledPost = styled.button`
 						width: 254px;
 						font-size: 17px;
 					}
+				`
+			);
+		} else if(props.mode === 'large') {
+			return (
+				`
+					width: calc(55% + 409px);
 				`
 			);
 		}
